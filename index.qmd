@@ -142,9 +142,9 @@ data.frame( R2 = R2(pred.s, testing$Price ),
             MAE = MAE(pred.s, testing$Price ))
 ```
 
-R- squared (0.0460) indicates that 4.6% of the variation in the the price of honey is determined by the pH level of honey.
+R- squared (0.0602) indicates that 6.0% of the variation in the the price of honey is determined by the pH level of honey.
 
-A Root Mean Square Error (RMSE) value (0.9746) which is close to 1 suggests that the typical error in the model's predictions is around 0.97 units, indicating that the model is not very accurate. Ideally, you want RMSE to be as low as possible.
+A Root Mean Square Error (RMSE) value (0.9722) which is close to 1 suggests that the typical error in the model's predictions is around 0.97 units, indicating that the model is not very accurate. Ideally, you want RMSE to be as low as possible.
 
 ```{r }
 #|message = FALSE
@@ -168,7 +168,11 @@ data.frame( R2 = R2(pred.cv.s, testing$Price ),
             MAE = MAE(pred.cv.s, testing$Price ))
 ```
 
-The correlation between the observed value of the honey price and the predicted value is 5.8% (NB: the higher the better) which is an indication that the model poorly fit the data. Similarly, the same conclusion can be made considering the higher values of the model's RMSE & MAE (NB: lower values are better). This implies that the attribute `pH` alone does not capture the variability in the `Price` of honey in the dataset. Therefore, let's consider fitting multiple linear regression with other attributes, that way we can determine which of these attributes affecte the variability in price of honey most.
+-   **R²** is quite low (0.0602), which means the model does not explain much of the variability in the target variable. This suggests that the model is not capturing key relationships in the data.
+
+-   Both **RMSE** and **MAE** are relatively high (around 1), suggesting that the model's predictions have significant errors.
+
+    This implies that the attribute `pH` alone does not capture the variability in the `Price` of honey in the dataset. Therefore, let's consider fitting multiple linear regression with other attributes, that way we can determine which of these attributes affecte the variability in price of honey most.
 
 ## [**Classification Used Case**]{style="color: #2C6D26;"}
 
@@ -277,7 +281,7 @@ accuracy <- sum(diag(confusion_matrix)) / sum(confusion_matrix)
 print(paste("Accuracy:", round(accuracy, 4)))
 ```
 
-It shows 93% accuracy of the model.
+This indicates the model correctly predicted about 93.33% of the samples.
 
 #### **Feature Checking**
 

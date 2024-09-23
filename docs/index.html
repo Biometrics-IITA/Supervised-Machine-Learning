@@ -382,11 +382,11 @@ dbl (10): CS, Density, WC, pH, EC, F, G, Viscosity, Purity, Price
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>testing <span class="ot">&lt;-</span> data.sc[ind<span class="sc">==</span><span class="cn">FALSE</span>,]<span class="co"># Cross check the dimension of the two datasets   </span></span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(training)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9105    9</code></pre>
+<pre><code>[1] 9100    9</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(testing)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3911    9</code></pre>
+<pre><code>[1] 3916    9</code></pre>
 </div>
 </div>
 </section>
@@ -406,7 +406,7 @@ lm(formula = Price ~ pH, data = training)
 
 Coefficients:
 (Intercept)           pH  
-  -0.003484    -0.225011  </code></pre>
+    0.00389     -0.23956  </code></pre>
 </div>
 </div>
 <p>Before making use of the model for prediction, we need to assess the significance of the model using the function <code>summary()</code></p>
@@ -420,18 +420,18 @@ lm(formula = Price ~ pH, data = training)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--1.9333 -0.9391 -0.1467  1.0230  1.6401 
+-1.9693 -0.9283 -0.1605  1.0093  1.6563 
 
 Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -0.003484   0.010199  -0.342    0.733    
-pH          -0.225011   0.010182 -22.098   &lt;2e-16 ***
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  0.00389    0.01021   0.381    0.703    
+pH          -0.23956    0.01022 -23.433   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.9732 on 9103 degrees of freedom
-Multiple R-squared:  0.05091,   Adjusted R-squared:  0.05081 
-F-statistic: 488.3 on 1 and 9103 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 0.974 on 9098 degrees of freedom
+Multiple R-squared:  0.05692,   Adjusted R-squared:  0.05682 
+F-statistic: 549.1 on 1 and 9098 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>The regression coefficient of <code>pH</code> in the model is -0.228, which imply that a unit increase in the <code>pH</code> level of honey will lead to a significant reduction in the average price of honey by 0.228. The R-squared result showed that about 5% of the variability in the price of honey can be explained by the <code>pH</code> of the honey. Also, the residual standard error is 0.972 which implies that the observed price deviate from the predicted value approximately by 0.972 unit on average using <code>pH</code> attribute alone.</p>
@@ -459,12 +459,12 @@ F-statistic: 488.3 on 1 and 9103 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">RMSE =</span> <span class="fu">RMSE</span>(pred.s, testing<span class="sc">$</span>Price ),                   </span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">MAE =</span> <span class="fu">MAE</span>(pred.s, testing<span class="sc">$</span>Price ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         R2      RMSE       MAE
-1 0.0601789 0.9722118 0.8669958</code></pre>
+<pre><code>          R2      RMSE       MAE
+1 0.04630973 0.9703257 0.8623937</code></pre>
 </div>
 </div>
-<p>R- squared (0.0460) indicates that 4.6% of the variation in the the price of honey is determined by the pH level of honey.</p>
-<p>A Root Mean Square Error (RMSE) value (0.9746) which is close to 1 suggests that the typical error in the model’s predictions is around 0.97 units, indicating that the model is not very accurate. Ideally, you want RMSE to be as low as possible.</p>
+<p>R- squared (0.0602) indicates that 6.0% of the variation in the the price of honey is determined by the pH level of honey.</p>
+<p>A Root Mean Square Error (RMSE) value (0.9722) which is close to 1 suggests that the typical error in the model’s predictions is around 0.97 units, indicating that the model is not very accurate. Ideally, you want RMSE to be as low as possible.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|message = FALSE</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -486,11 +486,15 @@ F-statistic: 488.3 on 1 and 9103 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">RMSE =</span> <span class="fu">RMSE</span>(pred.cv.s, testing<span class="sc">$</span>Price ),            </span>
 <span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">MAE =</span> <span class="fu">MAE</span>(pred.cv.s, testing<span class="sc">$</span>Price ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         R2      RMSE       MAE
-1 0.0601789 0.9722118 0.8669958</code></pre>
+<pre><code>          R2      RMSE       MAE
+1 0.04630973 0.9703257 0.8623937</code></pre>
 </div>
 </div>
-<p>The correlation between the observed value of the honey price and the predicted value is 5.8% (NB: the higher the better) which is an indication that the model poorly fit the data. Similarly, the same conclusion can be made considering the higher values of the model’s RMSE &amp; MAE (NB: lower values are better). This implies that the attribute <code>pH</code> alone does not capture the variability in the <code>Price</code> of honey in the dataset. Therefore, let’s consider fitting multiple linear regression with other attributes, that way we can determine which of these attributes affecte the variability in price of honey most.</p>
+<ul>
+<li><p><strong>R²</strong> is quite low (0.0602), which means the model does not explain much of the variability in the target variable. This suggests that the model is not capturing key relationships in the data.</p></li>
+<li><p>Both <strong>RMSE</strong> and <strong>MAE</strong> are relatively high (around 1), suggesting that the model’s predictions have significant errors.</p>
+<p>This implies that the attribute <code>pH</code> alone does not capture the variability in the <code>Price</code> of honey in the dataset. Therefore, let’s consider fitting multiple linear regression with other attributes, that way we can determine which of these attributes affecte the variability in price of honey most.</p></li>
+</ul>
 </section>
 </section>
 <section id="classification-used-case" class="level2">
@@ -643,7 +647,7 @@ The final value used for the model was mtry = 2.</code></pre>
 <pre><code>[1] "Accuracy: 0.9333"</code></pre>
 </div>
 </div>
-<p>It shows 93% accuracy of the model.</p>
+<p>This indicates the model correctly predicted about 93.33% of the samples.</p>
 <section id="feature-checking" class="level4">
 <h4 class="anchored" data-anchor-id="feature-checking"><strong>Feature Checking</strong></h4>
 <div class="cell">
