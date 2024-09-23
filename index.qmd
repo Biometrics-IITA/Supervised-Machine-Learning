@@ -128,6 +128,8 @@ par(mfrow=c(2,2))
 plot(model.s)
 ```
 
+A few possible problems with the regression model are shown by the diagnostic plots: non-normality of residuals, potential heteroscedasticity, and possible misspecifications of the model (such as missing variables or non-linearity). Reexamining the model assumptions or altering the data would be beneficial.
+
 ### **STEP 5 - Model Performance Evaluation**
 
 Let take a look at the Q-Q Residuals & Residual vs Fitted plots, as we can see the data points are not distributed randomly and they do not to align with the diagonal line which imply that the model do not fit the data well. This step is an important step as it helps evaluate how well the model will generalize to an independent dataset. Common metrics used to evaluate regression model performance are **R-squared (R2)**, **Root Mean Squared Error (RMSE)**, and **Mean Absolute Error (MAE)**. These metrics can simply be estimated using the testing dataset or re-sample the data multiple time before computing the metrics.
@@ -139,6 +141,10 @@ data.frame( R2 = R2(pred.s, testing$Price ),
             RMSE = RMSE(pred.s, testing$Price ),                   
             MAE = MAE(pred.s, testing$Price ))
 ```
+
+R- squared (0.0460) indicates that 4.6% of the variation in the the price of honey is determined by the pH level of honey.
+
+A Root Mean Square Error (RMSE) value (0.9746) which is close to 1 suggests that the typical error in the model's predictions is around 0.97 units, indicating that the model is not very accurate. Ideally, you want RMSE to be as low as possible.
 
 ```{r }
 #|message = FALSE
@@ -162,7 +168,7 @@ data.frame( R2 = R2(pred.cv.s, testing$Price ),
             MAE = MAE(pred.cv.s, testing$Price ))
 ```
 
-The correlation between the observed value of the honey price and the predicted value is 5.8% (NB: the higher the better) which is an indication that the model poorly fit the data. Similarly, the same conclusion can be made considering the higher values of the model's RMSE & MAE (NB: lower values are better). This implies that the attribute `pH` alone does not capture the variability in the `Price` of honey in the dataset. Therefore, let's consider fitting multiple linear regression.
+The correlation between the observed value of the honey price and the predicted value is 5.8% (NB: the higher the better) which is an indication that the model poorly fit the data. Similarly, the same conclusion can be made considering the higher values of the model's RMSE & MAE (NB: lower values are better). This implies that the attribute `pH` alone does not capture the variability in the `Price` of honey in the dataset. Therefore, let's consider fitting multiple linear regression with other attributes, that way we can determine which of these attributes affecte the variability in price of honey most.
 
 ## [**Classification Used Case**]{style="color: #2C6D26;"}
 
@@ -201,6 +207,8 @@ head(iris)
 ```
 
 ### **Step 2 - Data Preprocessing**
+
+We check the structure and summary of the data.
 
 ```{r}
 # View the structure of the dataset  
@@ -255,6 +263,12 @@ confusion_matrix <- table(irisTest$Species, predictions)
 print(confusion_matrix)  
 ```
 
+-   **Setosa**: The model perfectly predicted all 15 setosa samples (100% accuracy for this class).
+
+-   **Versicolor**: The model predicted 14 out of 15 versicolor samples correctly, with one being misclassified as virginica.
+
+-   **Virginica**: The model predicted 13 out of 15 virginica samples correctly, with two being misclassified as versicolor.
+
 **Accuracy calculation**
 
 ```{r}
@@ -263,13 +277,15 @@ accuracy <- sum(diag(confusion_matrix)) / sum(confusion_matrix)
 print(paste("Accuracy:", round(accuracy, 4)))
 ```
 
-**Feature Checking**
+It shows 93% accuracy of the model.
+
+#### **Feature Checking**
 
 ```{r}
 #|eval=FALSE
 #|message=FALSE
 # Example of fitting a random forest model 
-library(randomForest)  
+library(randomForest)
 rf_model <- randomForest(Species ~ ., data = iris)   
 # Check the class of the model object  
 class(rf_model) 
